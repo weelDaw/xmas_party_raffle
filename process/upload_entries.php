@@ -13,11 +13,11 @@ if(isset($_FILES['upload_file'])){
         if(($handle = fopen($csv_file, "r")) !== FALSE){
             $meter_values = "";
             while (($data = fgetcsv($handle, 90000000, ",")) !== FALSE){
-                if($data[1] != "" && $data[2] !=""){
-                    $ck_entry = $sender->ck_entries(strtoupper($data[1]));
+                if($data[2] !=""){
+                    $ck_entry = $sender->ck_entries($data[2]);
                     while($ck = $ck_entry->fetch()){
                         if($ck[0] == 0 || $ck[0] ==""){
-                            $sender->save_entries($data[2], strtoupper($data[1]));
+                            $sender->save_entries($data[2]);
                         }
                     }
                 }

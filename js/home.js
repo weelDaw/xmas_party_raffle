@@ -1,41 +1,53 @@
 var last_get = [];
-var myArray = ['Ruel A. Costob', 'Rachel U. Lopez', 'Joan E. Puruganan', 'Rommel E. Romulo', 'Allan S. Vianzon', 'Jeffrey E. Santos', 'Sarah', 'Corine', 'Fernz', 'Edel'];
+var myArray = [];
 
 $(function(){
+
+    sender("", "../process/all_entries.php", "get_all_names");
+
+    $('#winner_draw').hide();
+
     $.fn.snow();
-    $.fn.snow({ minSize: 5, maxSize: 50, newOn: 1000, flakeColor: '#00BFFF' });
-    $.fn.snow({ minSize: 5, maxSize: 50, newOn: 1000, flakeColor: '#00FF00' });
-    $.fn.snow({ minSize: 5, maxSize: 50, newOn: 1000, flakeColor: '#00FFFF' });
-    $.fn.snow({ minSize: 5, maxSize: 50, newOn: 1000, flakeColor: '#7FFF00' });
-    $.fn.snow({ minSize: 5, maxSize: 50, newOn: 1000, flakeColor: '#90EE90' });
-    $.fn.snow({ minSize: 5, maxSize: 50, newOn: 1000, flakeColor: '#A9A9A9' });
-    $.fn.snow({ minSize: 5, maxSize: 50, newOn: 1000, flakeColor: '#8A2BE2' });
-    $.fn.snow({ minSize: 5, maxSize: 50, newOn: 1000, flakeColor: '#E6E6FA' });
-    $.fn.snow({ minSize: 5, maxSize: 50, newOn: 1000, flakeColor: '#E9967A' });
-    $.fn.snow({ minSize: 5, maxSize: 50, newOn: 1000, flakeColor: '#F5DEB3' });
-    $.fn.snow({ minSize: 5, maxSize: 50, newOn: 1000, flakeColor: '#FFF0F5' });
-    $.fn.snow({ minSize: 5, maxSize: 50, newOn: 1000, flakeColor: '#FFFFF0' });
+    $.fn.snow({ minSize: 5, maxSize: 45, newOn: 1000, flakeColor: '#00BFFF' });
+    $.fn.snow({ minSize: 5, maxSize: 45, newOn: 1000, flakeColor: '#00FF00' });
+    $.fn.snow({ minSize: 5, maxSize: 45, newOn: 1000, flakeColor: '#00FFFF' });
+    $.fn.snow({ minSize: 5, maxSize: 45, newOn: 1000, flakeColor: '#7FFF00' });
+    $.fn.snow({ minSize: 5, maxSize: 45, newOn: 1000, flakeColor: '#90EE90' });
+    $.fn.snow({ minSize: 5, maxSize: 45, newOn: 1000, flakeColor: '#A9A9A9' });
+    $.fn.snow({ minSize: 5, maxSize: 45, newOn: 1000, flakeColor: '#8A2BE2' });
+    $.fn.snow({ minSize: 5, maxSize: 45, newOn: 1000, flakeColor: '#E6E6FA' });
+    $.fn.snow({ minSize: 5, maxSize: 45, newOn: 1000, flakeColor: '#E9967A' });
+    $.fn.snow({ minSize: 5, maxSize: 45, newOn: 1000, flakeColor: '#F5DEB3' });
+    $.fn.snow({ minSize: 5, maxSize: 45, newOn: 1000, flakeColor: '#FFF0F5' });
+    $.fn.snow({ minSize: 5, maxSize: 45, newOn: 1000, flakeColor: '#FFFFF0' });
     $("input[name='draw']").attr("disabled","disabled");
 
-    /*$("#winner").animate({opacity:0},1000,"linear",function(){
-        $(this).animate({opacity:1},100);
-    });*/
 
-    /*$('#winner').each(function() {
-        var elem = $(this);
-        setInterval(function() {
-            if (elem.css('visibility') == 'hidden') {
-                elem.css('visibility', 'visible');
-            } else {
-                elem.css('visibility', 'hidden');
-            }
-        }, 300);
-    });*/
+    $('#show_all_entries').click(function(){
+        sender("", "../process/all_entries_order_by.php", "#show_entries2");
+    })
+
+    $('#not_participate').click(function(){
+        sender("", "../process/non_attendees.php", "#show_non_attendees");
+    })
+
+    $('#participate').click(function(){
+        sender({name_like:""}, "../process/show_attendees.php", "#show_attendees");
+    })
+
+    $('#reg_mod').click(function(){
+        var url = "../process/get_names.php";
+        var show = "#entries";
+        var data = "";
+        sender(data, url, show);
+    })
 
     $('#register_man_no').click(function(){
-        $('#man_no').val();
-
+        var selected = $('#selected_name').val();
+        sender({selected:selected}, "../process/register_entry.php", "");
+        sender("", "../process/get_names.php", "#entries");
     })
+
     $('#start').click(function(){
         $("input[name='draw']").removeAttr("disabled","disabled");
         $('#winner_start').show();
@@ -47,6 +59,7 @@ $(function(){
         var name = myArray[Math.floor(Math.random() * myArray.length)];
         if ($.inArray(name,last_get)< 0){
             last_get.push(name);
+            alert(myArray);
 
         //-----remove from name in array
             Array.prototype.remove=function(v){
@@ -61,7 +74,7 @@ $(function(){
                 $('#winner_draw').html(name);
                 $('#winner_draw').animate({ "color" : "rgba(61, 31, 17, 0.0)" }, 1000);
                 $('#winner_draw').textEffect({
-                    effect: 'jumble', // the type of the text aniamtion. fade, glow, jumble, slide, dropdown and random (default)
+                    effect: 'random', // the type of the text aniamtion. fade, glow, jumble, slide, dropdown and random (default)
                     effectSpeed: 150, // the speed in ms at which new letters begin to animate.
                     completionSpeed: 6000, // the speed in ms of the text aniamtion.
                     jumbleColor: '#7f7f7f' // the color of the jumbled letters.
@@ -105,11 +118,35 @@ $(function(){
 
 })
 
+function sender(data, url, show){
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: data,
+        beforeSend: function(){
+            $('.loading').show();
+        },
+        success: function(response){
+            if(show == "get_all_names"){
+                var array = JSON.parse(response);
+                myArray = array;
+            }else{
+                $(show).html(response);
+            }
+        },
+        error: function(err_msg){
+            alert("Error at getting models: "+err_msg['statusText'])
+        },
+        complete:function(){
+            $('.loading').fadeOut(2000);
+        }
+    })
+}
 
 
 
 function random_names(){
-    onHover(' ,.-=()+/*');
+    onHover(' ,.-=()+/*":;;');
 }
 
 /*============ Random Names With Animation ===========*/

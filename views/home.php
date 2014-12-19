@@ -17,11 +17,15 @@ if($_SESSION['authorized'] == "yes"){
        <script type="text/javascript" src="../js/home.js"></script>
     </head>
   <body>
+  <div  class="loading">
+      <img src='../css/loading_image/35.gif' class="image_loading"/>
+  </div>
   <div id="start_draw">
       <?php
+      include_once '../templates/modal.php';
       include_once '../templates/navigation.php';
       ?>
-       <a class="btn btn-warning" id="start">START</a>
+      <a class="btn btn-warning" id="start">START</a>
        &nbsp;&nbsp;&nbsp;
        <input type="button" name="draw" class="btn btn-warning" id="draw" value="DRAW">
       <a id="logout" class="btn btn-danger">Logout</a>
