@@ -1,11 +1,69 @@
 var last_get = [];
+var last_get_minor_prize = [];
+var last_get_major_prize = [];
+var minor_prize = ["RICE","FLAT IRON","ELECTRIC FAN","GROCERY","RICE COOKER"];
+var major_prize = ["SACK OF RICE","TURBO BOILER","MICROWAVE","WASHING MACHINE"];
+var prizes = ["MAJOR","MINOR"];
+var raffle_selected = "";
+var major_cnt = 1;
+var minor_cnt = 1;
+var minor_times = 1;
+var minor_selected_prize = "";
 var myArray = [];
+var minor_arr = [];
+var winner_cnt = 0;
+
+function random_prize(){
+    var ran_prize = prizes[Math.floor(Math.random() * prizes.length)];
+    console.log(ran_prize);
+    return ran_prize;
+}
 
 $(function(){
 
-    sender("", "../process/all_entries.php", "get_all_names");
+    $('#random_prizes').click(function(){
+        var ran_prize = random_prize();
+        raffle_selected = ran_prize;
+        if(ran_prize == "MAJOR" && major_cnt <= 5){
+            $("input[name='random_prizes']").attr("disabled","disabled");
+            $("input[name='start']").removeAttr("disabled","disabled");
 
-    $('#winner_draw').hide();
+            var major_selected = major_prize[Math.floor(Math.random() * major_prize.length)];
+            console.log(major_selected);
+
+            //-----remove from name in array
+            Array.prototype.remove=function(v){
+                delete this[this.indexOf(v)]
+            };
+            major_prize.remove(major_selected);
+            console.log(major_prize);
+
+            major_cnt++;
+            console.log(major_cnt);
+        }else if(ran_prize == "MINOR" && minor_cnt <=16){
+            $("input[name='random_prizes']").attr("disabled","disabled");
+            $("input[name='start']").removeAttr("disabled","disabled");
+
+            var minor_selected = minor_prize[Math.floor(Math.random() * minor_prize.length)];
+            console.log(minor_selected);
+
+            //-----remove from name in array
+            Array.prototype.remove=function(v){
+                delete this[this.indexOf(v)]
+            };
+            minor_selected_prize = minor_selected;
+            minor_prize.remove(minor_selected);
+            console.log(minor_prize);
+
+            minor_cnt++;
+        }
+        else{
+
+        }
+    })
+
+
+
 
     $.fn.snow();
     $.fn.snow({ minSize: 5, maxSize: 45, newOn: 1000, flakeColor: '#00BFFF' });
@@ -20,7 +78,23 @@ $(function(){
     $.fn.snow({ minSize: 5, maxSize: 45, newOn: 1000, flakeColor: '#F5DEB3' });
     $.fn.snow({ minSize: 5, maxSize: 45, newOn: 1000, flakeColor: '#FFF0F5' });
     $.fn.snow({ minSize: 5, maxSize: 45, newOn: 1000, flakeColor: '#FFFFF0' });
+
+    sender("", "../process/all_entries.php", "get_all_names");
+    sender("", "../process/get_attendees.php", "get_minor_names");
+
+    $('#upload_name_man_no').appendTo("body");
+    $('#reg_man_no').appendTo("body");
+    $('#attendees').appendTo("body");
+    $('#non_attendees').appendTo("body");
+    $('#all_entries').appendTo("body");
+    $('#minor_prizes').appendTo("body");
+    $('#major_prizes').appendTo("body");
+
+    $('#winner_draw').hide();
+    $("input[name='start']").attr("disabled","disabled");
     $("input[name='draw']").attr("disabled","disabled");
+
+
 
 
     $('#show_all_entries').click(function(){
@@ -55,11 +129,38 @@ $(function(){
         random_names();
     })
 
-    $('#draw').click(function(){
-        var name = myArray[Math.floor(Math.random() * myArray.length)];
+    /*================= Raffle Draw =================*/
+
+   /* $('#draw').click(function(){
+
+        var name = "";
+
+        if(raffle_selected == "MAJOR"){
+            name = myArray[Math.floor(Math.random() * myArray.length)];
+            $("input[name='random_prizes']").removeAttr("disabled","disabled");
+            $("input[name='start']").attr("disabled","disabled");
+        }else{
+            name = minor_arr[Math.floor(Math.random() * minor_arr.length)];
+            if(minor_selected_prize == "RICE" && minor_times <= 6){
+                console.log(minor_selected_prize);
+            }else if(minor_selected_prize == "FLAT IRON" && minor_times <= 2){
+                console.log(minor_selected_prize);
+            }else if(minor_selected_prize == "ELECTRIC FAN" && minor_times <= 2){
+                console.log(minor_selected_prize);
+            }else if(minor_selected_prize == "GROCERY" && minor_times <= 3){
+                console.log(minor_selected_prize);
+            }else if(minor_selected_prize == "RICE COOKER" && minor_times <= 2){
+                console.log(minor_selected_prize);
+            }else{
+                $("input[name='random_prizes']").removeAttr("disabled","disabled");
+                $("input[name='start']").attr("disabled","disabled");
+                $("input[name='draw']").attr("disabled","disabled");
+            }
+            minor_times++;
+        }
+
         if ($.inArray(name,last_get)< 0){
             last_get.push(name);
-            alert(myArray);
 
         //-----remove from name in array
             Array.prototype.remove=function(v){
@@ -79,10 +180,7 @@ $(function(){
                     completionSpeed: 6000, // the speed in ms of the text aniamtion.
                     jumbleColor: '#7f7f7f' // the color of the jumbled letters.
                 });
-
-
             }, 2000);
-
         }else{
             if(last_get.length !== myArray.length){
                 random_names();
@@ -90,7 +188,7 @@ $(function(){
                 alert("All names already mention !");
             }
         }
-    })
+    })*/
 
     $('#logout').click(function(){
         $.ajax({
@@ -130,6 +228,9 @@ function sender(data, url, show){
             if(show == "get_all_names"){
                 var array = JSON.parse(response);
                 myArray = array;
+            }else if(show == "get_minor_names"){
+                var arr = JSON.parse(response);
+                minor_arr = arr;
             }else{
                 $(show).html(response);
             }
@@ -143,6 +244,65 @@ function sender(data, url, show){
     })
 }
 
+function draw(){
+    var name = "";
+    if ($.inArray(name,last_get)< 0){
+        last_get.push(name);
+
+        //-----remove from name in array
+        Array.prototype.remove=function(v){
+            delete this[this.indexOf(v)]
+        };
+        myArray.remove(name);
+
+        if(raffle_selected == "MAJOR"){
+            name = myArray[Math.floor(Math.random() * myArray.length)];
+            $("input[name='random_prizes']").removeAttr("disabled","disabled");
+            $("input[name='start']").attr("disabled","disabled");
+        }else{
+            name = minor_arr[Math.floor(Math.random() * minor_arr.length)];
+            if(minor_selected_prize == "RICE" && minor_times <= 6){
+                alert(minor_selected_prize);
+            }else if(minor_selected_prize == "FLAT IRON" && minor_times <= 2){
+                alert(minor_selected_prize);
+            }else if(minor_selected_prize == "ELECTRIC FAN" && minor_times <= 2){
+                alert(minor_selected_prize);
+            }else if(minor_selected_prize == "GROCERY" && minor_times <= 3){
+                alert(minor_selected_prize);
+            }else if(minor_selected_prize == "RICE COOKER" && minor_times <= 2){
+                alert(minor_selected_prize);
+            }else{
+                $("input[name='random_prizes']").removeAttr("disabled","disabled");
+                $("input[name='start']").attr("disabled","disabled");
+                $("input[name='draw']").attr("disabled","disabled");
+            }
+            minor_times++;
+        }
+
+
+
+        //////////////////////////////////////////////
+        $("input[name='draw']").attr("disabled","disabled");
+        setTimeout(function(){
+            $('#winner_start').hide();
+            $('#winner_draw').fadeIn(2000);
+            $('#winner_draw').html(name);
+            $('#winner_draw').animate({ "color" : "rgba(61, 31, 17, 0.0)" }, 1000);
+            $('#winner_draw').textEffect({
+                effect: 'random', // the type of the text aniamtion. fade, glow, jumble, slide, dropdown and random (default)
+                effectSpeed: 150, // the speed in ms at which new letters begin to animate.
+                completionSpeed: 6000, // the speed in ms of the text aniamtion.
+                jumbleColor: '#7f7f7f' // the color of the jumbled letters.
+            });
+        }, 2000);
+    }else{
+        if(last_get.length !== myArray.length){
+            random_names();
+        }else{
+            alert("All names already mention !");
+        }
+    }
+}
 
 
 function random_names(){

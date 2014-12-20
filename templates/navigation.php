@@ -1,8 +1,8 @@
 <ul id="menu">
-    <li><a href="#">Prize</a>
+    <li><a href="#">Prizes</a>
         <ul>
-            <li><a href="#">Minor</a></li>
-            <li><a href="#">Major</a></li>
+            <li><a href="#minor_prizes" data-toggle="modal">Minor</a></li>
+            <li><a href="#major_prizes" data-toggle="modal">Major</a></li>
         </ul>
     </li>
     <li><a href="#">Raffle Entries</a>
@@ -15,7 +15,7 @@
     <li><a href="#" >Registration</a>
         <ul>
             <li><a href="#reg_man_no" data-toggle="modal" id="reg_mod">Register Entry</a></li>
-            <li><a href="#upload_name_man_no" data-toggle="modal">Upload Man No. w/ Names</a></li>
+            <li><a href="#upload_name_man_no" data-toggle="modal">Upload Entries</a></li>
         </ul>
     </li>
 </ul>

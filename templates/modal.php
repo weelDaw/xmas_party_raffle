@@ -75,3 +75,66 @@
         <button class="btn btn-primary" data-dismiss='modal'>Close</button>
     </div>
 </div>
+
+<!--============== MINOR PRIZES =============-->
+
+<div id='minor_prizes' class='modal hide fade' tabindex="-1" role='dialog' area-hidden="true">
+    <div class='modal-body'>
+        <table class="table table-bordered">
+            <tr>
+                <th>NO. OF WINNERS</th>
+                <th>PRIZE</th>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Rice</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Flat Iron</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Electric Fan</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Grocery</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Rice Cooker</td>
+            </tr>
+        </table>
+    </div>
+    <div class='modal-footer'>
+        <button class="btn btn-primary" data-dismiss='modal'>Close</button>
+    </div>
+</div>
+
+<!--============== MAJOR PRIZES =============-->
+
+<div id='major_prizes' class='modal hide fade' tabindex="-1" role='dialog' area-hidden="true">
+    <div class='modal-body'>
+        <table class="table table-bordered">
+            <tr>
+                <th>TV</th>
+            </tr>
+            <tr>
+                <th>SACK OF RICE</th>
+            </tr>
+            <tr>
+                <th>TURBO BOILER</th>
+            </tr>
+            <tr>
+                <th>MICROWAVE</th>
+            </tr>
+            <tr>
+                <th>WASHING MACHINE</th>
+            </tr>
+        </table>
+    </div>
+    <div class='modal-footer'>
+        <button class="btn btn-primary" data-dismiss='modal'>Close</button>
+    </div>
+</div>
