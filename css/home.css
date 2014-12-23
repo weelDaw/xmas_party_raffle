@@ -48,14 +48,14 @@ body{
     white-space: nowrap;
     border-radius: 50px;
     text-align: center;
-    background-color: #faa732;
-    padding: 20px;
+    background-color: #000000;
+    padding: 30px;
     position: absolute;
     margin-left: 520px;
     margin-top:-400px;
-    width: 930px;
-    color:#a9302a;
-    font-size: 70px;
+    width: 1000px;
+    color:#f89406;
+    font-size: 50px;
 }
 #random_prizes{
     background: linear-gradient(top, #a9302a, #0088cc, #a9302a);
@@ -115,6 +115,13 @@ body{
     white-space: nowrap;
 }
 /*==================== TABLE DESIGN ===================*/
+/*=============== TH Color ==================*/
+#th_color{
+    background: linear-gradient(top, #d0e9c6, #777777);
+    background: -moz-linear-gradient(top, #d0e9c6, #777777);
+    background: -webkit-linear-gradient(top, #faa732, #777777);
+    background: -o-linear-gradient(top, #d0e9c6, #777777);
+}
 .background-image
 {
     border: 1px solid #d9edf7;
@@ -162,6 +169,7 @@ body{
     color: #339;
     background-color: #c4e3f3;
 }
+
 /*============= Sticky menu bar ==============*/
 .sticky{
     position: fixed;
@@ -171,23 +179,6 @@ body{
     z-index: 100;
     border-top: 0;
 }
-
-
-/*
-#winner{
-    animation-duration: 400ms;
-    animation-name: blink;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-}
-@keyframes blink {
-    from {
-        opacity: 1;
-    }
-    to {
-        opacity: 0;
-    }
-}*/
 
 
 #winner #winner_draw{
@@ -203,7 +194,7 @@ body{
         color:#003bb3;
     }
     to {
-        color:#363636;
+        color:#c67605;
     }
 }
 @-webkit-keyframes blink {
@@ -211,7 +202,7 @@ body{
         color:#2f96b4;
     }
     to {
-        color:#363636;
+        color:#c67605;
     }
 }
 

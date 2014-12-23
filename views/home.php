@@ -25,7 +25,7 @@ if($_SESSION['authorized'] == "yes"){
       include_once '../templates/modal.php';
       include_once '../templates/navigation.php';
       ?>
-      <input class="btn btn-warning" name="random_prizes" id="random_prizes" value="RANDOM PRIZES"/>
+      <input class="btn btn-warning" name="random_prizes" id="random_prizes" value="RANDOM PRIZES" onclick="random_prizes();"/>
       &nbsp;&nbsp;&nbsp;
       <input class="btn btn-warning" name="start" id="start" value="START"/>
        &nbsp;&nbsp;&nbsp;
@@ -38,40 +38,48 @@ if($_SESSION['authorized'] == "yes"){
   <div id="list_of_winners">
       <table class="background-image">
           <tr>
-              <th colspan="2">MAJOR</th>
+              <th colspan="2" id="th_color">GRAND PRIZE</th>
+          </tr>
+          <tr>
+              <th>PRIZE</th>
+              <th>WINNER</th>
+          </tr>
+          <tr>
+              <th>TV</th>
+              <td id="tv"></td>
+          </tr>
+          <tr>
+              <th colspan="2" id="th_color">SPECIAL PRIZE</th>
+          </tr>
+          <tr>
+              <th>PRIZE</th>
+              <th>WINNER</th>
+          </tr>
+          <tr>
+              <th>MICROWAVE</th>
+              <td id="microwave"></td>
+          </tr>
+          <tr>
+              <th colspan="2" id="th_color">MAJOR</th>
           </tr>
           <tr>
               <th>PRIZES</th>
               <th>LIST OF WINNERS</th>
           </tr>
           <tr>
-              <th>TV</th>
-              <td></td>
-          </tr>
-          <tr>
               <th>SACK OF RICE</th>
-              <td></td>
+              <td id="sack_rice"></td>
           </tr>
           <tr>
               <th>TURBO BOILER</th>
-              <td></td>
-          </tr>
-          <tr>
-              <th>MICROWAVE</th>
-              <td></td>
+              <td id="turbo_boiler"></td>
           </tr>
           <tr>
               <th>WASHING MACHINE</th>
-              <td></td>
+              <td id="washing_machine"></td>
           </tr>
           <tr>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-          </tr>
-      <!--</table>
-      <table class="background-image">-->
-          <tr>
-              <th colspan="2">MINOR</th>
+              <th colspan="2" id="th_color">MINOR</th>
           </tr>
           <tr>
               <th>PRIZES</th>
@@ -81,65 +89,65 @@ if($_SESSION['authorized'] == "yes"){
               <th rowspan="7">RICE</th>
           </tr>
           <tr>
-              <td>-</td>
+              <td id="rice1">-</td>
           </tr>
           <tr>
-              <td>-</td>
+              <td id="rice2">-</td>
           </tr>
           <tr>
-              <td>-</td>
+              <td id="rice3">-</td>
           </tr>
           <tr>
-              <td>-</td>
+              <td id="rice4">-</td>
           </tr>
           <tr>
-              <td>-</td>
+              <td id="rice5">-</td>
           </tr>
           <tr>
-              <td>-</td>
+              <td id="rice6">-</td>
           </tr>
           <tr>
               <th rowspan="3">FLAT IRON</th>
           </tr>
           <tr>
-              <td>-</td>
+              <td id="flat_iron_1">-</td>
           </tr>
           <tr>
-              <td>-</td>
+              <td id="flat_iron_2">-</td>
           </tr>
           <tr>
               <th rowspan="3">ELECTRIC FAN</th>
           </tr>
           <tr>
-              <td>-</td>
+              <td id="electric_fan_1">-</td>
           </tr>
           <tr>
-              <td>-</td>
+              <td id="electric_fan_2">-</td>
           </tr>
           <tr>
               <th rowspan="4">GROCERY</th>
           </tr>
           <tr>
-              <td>-</td>
+              <td id="grocery_1">-</td>
           </tr>
           <tr>
-              <td>-</td>
+              <td id="grocery_2">-</td>
           </tr>
           <tr>
-              <td>-</td>
+              <td id="grocery_3">-</td>
           </tr>
           <tr>
               <th rowspan="3">RICE COOKER</th>
           </tr>
           <tr>
-              <td>-</td>
+              <td id="rice_cooker_1">-</td>
           </tr>
           <tr>
-              <td>-</td>
+              <td id="rice_cooker_2">-</td>
           </tr>
       </table>
   </div>
-  <div id="winner"><label id="winner_start">I'M THE WINNER !  HAHAHAHA</label><label id="winner_draw"></label></div>
+  <div id="winner"><label id="winner_start">AND THE WINNER IS !</label><label id="winner_draw"></label></div>
   </body>
  </html>
 <?php
